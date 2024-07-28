@@ -35,8 +35,12 @@ To improve this application, I would:
 - structure the application more appropriately.
 - utilise interfaces, both to follow SOLID principles as well as allow mocking for the unit tests to only test specific modules. This I would have ideally done but the learning curve for doing this in Golang prevented me from doing it on this application.
 - Further jobs on the GitHub workflow: coverage, code quality, vulnerability checks etc.
-- Utilised HTMX to pass partial HTML back to template (I am still learning HTMX).
+- Utilised HTMX to pass partial HTML back to template to render (I am still learning HTMX).
 
 ## Deployed Application
 
 The application is deployed on Heroku. This is currently a manual process to deploy from the remote main branch on the GitHub repo. For a production application this would be deployed as part of a CI/CD pipeline after a Pull Request has been merged into main.
+
+The url for the deployed app is: https://go-order-app-5a35dfeb6589.herokuapp.com/ 
+
+If the URL doesn't work for whatever reason, please let me know.
