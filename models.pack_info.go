@@ -12,6 +12,14 @@ func getPackResponse(itemsOrdered int) []requiredPackInfo {
 	return requiredPacks(minItemsToSend)
 }
 
+func changePackSizes(newPackSizes []int) bool {
+	return setPackSizes(newPackSizes)
+}
+
+func changePackSizesToDefault() {
+	setPackSizesToDefault()
+}
+
 func minimumItemsToSend(itemsOrdered int) int {
 	var itemsRemaining = itemsOrdered
 	var minItemsToSend = 0
@@ -62,9 +70,6 @@ func requiredPacks(itemsRemaining int) []requiredPackInfo {
 
 	if itemsRemaining > 0 {
 		var smallestPackage = packSizes()[len(packSizes())-1]
-
-		// number of packs required, accounting for any remaining.
-		// var numberOfPackages = (itemsRemaining + smallestPackage - 1) / smallestPackage
 
 		requiredPacks = addPack(smallestPackage, requiredPacks)
 	}

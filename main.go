@@ -1,9 +1,6 @@
 package main
 
 import (
-	"net/http"
-	"strconv"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,25 +9,9 @@ func main() {
 
 	router.GET("/packs", getPacks)
 
-	// router.PUT("/change-pack-size", changePackSize)
+	router.PUT("/change-pack-sizes", putPackSizes)
 
-	// router.PUT("/add-pack-size", addPackSize)
-
-	// router.PUT("/remove-pack-size", removePackSize)
+	router.PUT("/reset-pack-sizes", putPackSizes)
 
 	router.Run("localhost:8080")
-}
-
-func getPacks(c *gin.Context) {
-	var itemsOrderedParam = c.Query("itemsOrdered")
-	var itemsOrderedInt, err = strconv.Atoi(itemsOrderedParam)
-	if err != nil {
-		// change
-		c.IndentedJSON(http.StatusOK, jsonErrorResppnse{
-			ErrorMessage: "Invalid itemsOrdered value",
-			Response:     "error",
-		})
-	}
-
-	c.IndentedJSON(http.StatusOK, jsonSuccessResponse{RequiredPacks: getPackResponse(itemsOrderedInt), Response: "success"})
 }

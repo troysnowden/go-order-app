@@ -1,6 +1,10 @@
 package main
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 // Test the function that returns a pack response based on number of items ordered
 func TestGetPackResponse(t *testing.T) {
@@ -25,7 +29,6 @@ func TestGetPackResponse(t *testing.T) {
 }
 
 func assertPackInfo(t *testing.T, expectedPackSize int, actualPackSize int, expectedAmount int, actualAmount int) {
-	if expectedPackSize != actualPackSize && expectedAmount != actualAmount {
-		t.Errorf("packResponse(1) = %d * %d; wanted: %d * %d ", actualPackSize, actualAmount, expectedPackSize, expectedAmount)
-	}
+	assert.Equal(t, expectedPackSize, actualPackSize)
+	assert.Equal(t, expectedAmount, actualAmount)
 }

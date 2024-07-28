@@ -1,11 +1,15 @@
 package main
 
-type jsonSuccessResponse struct {
+type jsonSuccessGetResponse struct {
 	RequiredPacks []requiredPackInfo `json:"requiredPacks"`
 	Response      string             `json:"response"`
 }
 
-type jsonErrorResppnse struct {
+type jsonSuccessPutResponse struct {
+	Response string `json:"response"`
+}
+
+type jsonErrorResponse struct {
 	ErrorMessage string `json:"error"`
 	Response     string `json:"response"`
 }
