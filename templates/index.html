@@ -1,23 +1,35 @@
 <!--Embed the header.html template at this location-->
 {{ template "header.html" .}}
 
-  <form method="GET" action="/pack-sizes"><br />
+   <form method="GET" action="/pack-sizes"><br />
     <label>Number of items to order:</label><br />
-    <input type="number" name="itemsOrdered" required><br />
-    <input type="submit">
+    <input class="form-control" type="number" name="itemsOrdered" required><br />
+    <input class="btn btn-primary" type="submit">
    </form>
 
    {{ if .packs }}
-        <h2> Packs required for {{.itemsOrdered}} items</h2>
-        <ul>
-        {{ range .packs }}
-            <li>
-            <h3>Pack: {{.PackSize}}</h3>
-            <h3>Amount: {{.Amount}}</h3>
-            </li>
-        {{ end }}
-        </ul>
-        <h2>{{.itemsToSend}} items to be sent</h2>
+        <div class="container mt-5">
+            <h2> Packs required for {{.itemsOrdered}} items</h2>
+            <div class="table-responsive">
+            <table class="table table-striped table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Pack Size</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range .packs }}
+                        <tr>
+                            <td>{{.PackSize}}</td>
+                            <td>{{.Amount}}</td>
+                        </tr>
+                    {{ end }}
+                </tbody>
+            </table>
+            </div>
+            <p>{{.itemsToSend}} items to be sent</p>
+        </div>
    {{ end }}
 
 <!--Embed the footer.html template at this location-->
