@@ -13,5 +13,5 @@ func main() {
 
 	router.PUT("/reset-pack-sizes", putPackSizes)
 
-	router.Run("localhost:8080")
+	router.Run(":8080")
 }
