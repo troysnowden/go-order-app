@@ -25,10 +25,18 @@ The index page contains a form that allows you to submit a number of items. This
 ### GET /pack-sizes
 This route calculates the packs required, and passes the data back to the index template. It renders a list of the required packs. Its server side validation currently returns JSON as opposed to rendering an error message on the frontend, as the route utilises the same middleware function as the equivalent REST API endpoint.
 
+## Improvements
+
 To improve this application, I would:
 - add unit tests for the frontend route
 - for a production application, the frontend would be a separate component to the REST API, and the frontend would call the API endpoints to retrieve the data.
 - as mentioned previously, persist changes in the pack sizes in a database.
 - improve the UI (actually have a UI!)
 - structure the application more appropriately.
-- utilise interfaces, both to follow SOLID principles as well as allow mocking for the unit tests to only test specific modules.
+- utilise interfaces, both to follow SOLID principles as well as allow mocking for the unit tests to only test specific modules. This I would have ideally done but the learning curve for doing this in Golang prevented me from doing it on this application.
+- Further jobs on the GitHub workflow: coverage, code quality, vulnerability checks etc.
+- Utilised HTMX to pass partial HTML back to template (I am still learning HTMX).
+
+## Deployed Application
+
+The application is deployed on Heroku. This is currently a manual process to deploy from the remote main branch on the GitHub repo. For a production application this would be deployed as part of a CI/CD pipeline after a Pull Request has been merged into main.
