@@ -1,0 +1,24 @@
+<!--Embed the header.html template at this location-->
+{{ template "header.html" .}}
+
+  <form method="GET" action="/pack-sizes"><br />
+    <label>Number of items to order:</label><br />
+    <input type="number" name="itemsOrdered" required><br />
+    <input type="submit">
+   </form>
+
+   {{ if .packs }}
+        <h2> Packs required for {{.itemsOrdered}} items</h2>
+        <ul>
+        {{ range .packs }}
+            <li>
+            <h3>Pack: {{.PackSize}}</h3>
+            <h3>Amount: {{.Amount}}</h3>
+            </li>
+        {{ end }}
+        </ul>
+        <h2>{{.itemsToSend}} items to be sent</h2>
+   {{ end }}
+
+<!--Embed the footer.html template at this location-->
+{{ template "footer.html" .}}

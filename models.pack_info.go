@@ -5,11 +5,10 @@ type requiredPackInfo struct {
 	Amount   int `json:"amount"`
 }
 
-func getPackResponse(itemsOrdered int) []requiredPackInfo {
+func getPackResponse(itemsOrdered int) ([]requiredPackInfo, int) {
 
 	var minItemsToSend = minimumItemsToSend(itemsOrdered)
-
-	return requiredPacks(minItemsToSend)
+	return requiredPacks(minItemsToSend), minItemsToSend
 }
 
 func changePackSizes(newPackSizes []int) bool {
