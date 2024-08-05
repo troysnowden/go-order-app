@@ -29,27 +29,65 @@ func renderGetPacksResponse(c *gin.Context) {
 }
 
 // these are the rest API endpoints
+// func getPacks(c *gin.Context) {
+// 	itemsOrderedInt, _ := strconv.Atoi(c.Query("itemsOrdered"))
+
+// 	var packsRequired, _ = getPackResponse(itemsOrderedInt)
+
+// 	c.IndentedJSON(http.StatusOK,
+// 		jsonSuccessGetResponse{RequiredPacks: packsRequired, Response: successResponse})
+// }
+
+// func putPackSizes(c *gin.Context) {
+// 	var requestBody jsonChangePackSizesPutRequest
+// 	c.BindJSON(&requestBody)
+// 	if changePackSizes(requestBody.NewPackSizes) {
+// 		c.IndentedJSON(http.StatusOK, jsonSuccessPutResponse{Response: successResponse})
+// 	} else {
+// 		c.IndentedJSON(http.StatusBadRequest,
+// 			jsonErrorResponse{
+// 				ErrorMessage: errorMessage("NewPackSizes"),
+// 				Response:     errorResponse,
+// 			})
+// 	}
+// }
+
 func getPacks(c *gin.Context) {
-	itemsOrderedInt, _ := strconv.Atoi(c.Query("itemsOrdered"))
-
-	var packsRequired, _ = getPackResponse(itemsOrderedInt)
-
-	c.IndentedJSON(http.StatusOK,
-		jsonSuccessGetResponse{RequiredPacks: packsRequired, Response: successResponse})
+	const itemsOrderedKey = "itemsOrdered"
+	if itemsOrderedInt, err := strconv.Atoi(c.Query(itemsOrderedKey)); err != nil {
+		c.IndentedJSON(http.StatusBadRequest,
+			jsonErrorResponse{
+				ErrorMessage: errorMessage(itemsOrderedKey),
+				Response:     errorResponse,
+			})
+	} else {
+		var packsRequired, _ = getPackResponse(itemsOrderedInt)
+		c.IndentedJSON(http.StatusOK,
+			jsonSuccessGetResponse{RequiredPacks: packsRequired, Response: successResponse})
+	}
 }
 
 func putPackSizes(c *gin.Context) {
+	const newPackSizesKey = "NewPackSizes"
 	var requestBody jsonChangePackSizesPutRequest
-	c.BindJSON(&requestBody)
 
-	if changePackSizes(requestBody.NewPackSizes) {
-		c.IndentedJSON(http.StatusOK, jsonSuccessPutResponse{Response: successResponse})
-	} else {
+	if err := c.BindJSON(&requestBody); err != nil {
+		fmt.Println("invalid JSON")
 		c.IndentedJSON(http.StatusBadRequest,
 			jsonErrorResponse{
-				ErrorMessage: errorMessage("NewPackSizes"),
+				ErrorMessage: errorMessage(newPackSizesKey),
 				Response:     errorResponse,
 			})
+	} else {
+		if changePackSizes(requestBody.NewPackSizes) {
+			c.IndentedJSON(http.StatusOK, jsonSuccessPutResponse{Response: successResponse})
+		} else {
+			c.IndentedJSON(http.StatusBadRequest,
+				jsonErrorResponse{
+					ErrorMessage: errorMessage(newPackSizesKey),
+					Response:     errorResponse,
+				})
+		}
 	}
 }
 

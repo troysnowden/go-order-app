@@ -20,16 +20,19 @@ func validateItemsOrderedParam() gin.HandlerFunc {
 	}
 }
 
-func validatePutJsonRequest() gin.HandlerFunc {
-	return func(c *gin.Context) {
-		var requestBody jsonChangePackSizesPutRequest
-		if err := c.BindJSON(&requestBody); err != nil {
-			c.AbortWithStatusJSON(http.StatusBadRequest,
-				jsonErrorResponse{
-					ErrorMessage: errorMessage("NewPackSizes"),
-					Response:     errorResponse,
-				})
-			return
-		}
-	}
-}
+// this doesn't work due to being unable to unmarshal json request more than once.
+// func validatePutJsonRequest() gin.HandlerFunc {
+// 	return func(c *gin.Context) {
+// 		var requestBody jsonChangePackSizesPutRequest
+// 		if err := c.ShouldBindJSON(&requestBody); err != nil {
+// 			c.AbortWithStatusJSON(http.StatusBadRequest,
+// 				jsonErrorResponse{
+// 					ErrorMessage: errorMessage("NewPackSizes"),
+// 					Response:     errorResponse,
+// 				})
+// 			c.Abort()
+// 			return
+// 		}
+// 		c.Next()
+// 	}
+// }

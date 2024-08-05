@@ -24,9 +24,9 @@ func main() {
 	getPackPaths := router.Group("/")
 	getPackPaths.Use(validateItemsOrderedParam())
 
-	// PUT JSON request body validation middleware
-	putPackSizePaths := router.Group("/")
-	putPackSizePaths.Use(validatePutJsonRequest())
+	// PUT JSON request body validation middleware (doesn't work as explained in middleware file)
+	// putPackSizePaths := router.Group("/")
+	// putPackSizePaths.Use(validatePutJsonRequest())
 
 	// frontend routes
 	router.GET("/", renderIndexTemplate)
@@ -36,7 +36,7 @@ func main() {
 	// rest API routes
 	getPackPaths.GET("api/packs", getPacks)
 
-	putPackSizePaths.PUT("api/pack-sizes", putPackSizes)
+	router.PUT("api/pack-sizes", putPackSizes)
 
 	router.PUT("/api/reset-pack-sizes", resetPackSizesToDefault)
 
